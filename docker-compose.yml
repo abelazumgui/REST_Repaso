@@ -1,0 +1,29 @@
+version: '2'
+services:
+  mysql_banco:
+    build:
+      dockerfile: Dockerfile
+      target: mysql_banco_imagen
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    networks:
+      red_banco:
+        aliases:
+          - basededatos
+          
+  rest_banco:
+    build:
+      dockerfile: Dockerfile
+      target: rest_banco_imagen
+    ports:
+      - 1104:1104
+    networks:
+      red_banco:
+    restart:
+      on-failure
+
+networks:
+  red_banco:
+    
